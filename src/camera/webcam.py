@@ -18,7 +18,7 @@ class Webcam:
 
         self.previous_time = time.time()
 
-    def start(self, window_name, frame_processor=None):
+    def start(self, window_name, frame_processor=None, key_handler=None):
 
         while True:
 
@@ -49,8 +49,14 @@ class Webcam:
 
             cv2.imshow(window_name, frame)
 
-            if cv2.waitKey(1) & 0xFF == ord("q"):
-                break
+            key = cv2.waitKey(1) & 0xFF
+
+            if key_handler is not None:
+
+                should_exit = key_handler(key)
+
+                if should_exit:
+                    break
 
         self.cap.release()
         cv2.destroyAllWindows()
