@@ -1,16 +1,10 @@
-from camera.webcam import Webcam
-from config.settings import *
+from app import App
 
 
 def main():
 
-    camera = Webcam(
-        CAMERA_INDEX,
-        FRAME_WIDTH,
-        FRAME_HEIGHT
-    )
-
-    camera.start(WINDOW_NAME)
+    app = App()
+    app.run()
 
 
 if __name__ == "__main__":

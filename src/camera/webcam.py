@@ -18,7 +18,7 @@ class Webcam:
 
         self.previous_time = time.time()
 
-    def start(self, window_name):
+    def start(self, window_name, frame_processor=None, key_handler=None):
 
         while True:
 
@@ -28,10 +28,13 @@ class Webcam:
                 print("Failed to read camera.")
                 break
 
+            if frame_processor is not None:
+                frame = frame_processor(frame)
+
             current_time = time.time()
 
-            fps = 1 / (current_time - self.previous_time)
-
+            delta = current_time - self.previous_time
+            fps = 1 / delta if delta > 0 else 0
             self.previous_time = current_time
 
             cv2.putText(
@@ -46,10 +49,14 @@ class Webcam:
 
             cv2.imshow(window_name, frame)
 
-            key = cv2.waitKey(1)
+            key = cv2.waitKey(1) & 0xFF
 
-            if key == ord("q"):
-                break
+            if key_handler is not None:
+
+                should_exit = key_handler(key)
+
+                if should_exit:
+                    break
 
         self.cap.release()
         cv2.destroyAllWindows()
