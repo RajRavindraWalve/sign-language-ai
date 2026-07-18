@@ -17,8 +17,8 @@ class LandmarkInspector:
 
             print(f"\n[{index}] {LANDMARK_NAMES[index]}")
 
-            print(f"    x : {landmark['x']:.4f}")
-            print(f"    y : {landmark['y']:.4f}")
-            print(f"    z : {landmark['z']:.4f}")
+            print(f"    x : {landmark[0]:.4f}")
+            print(f"    y : {landmark[1]:.4f}")
+            print(f"    z : {landmark[2]:.4f}")
 
         print("\n" + "=" * 60)

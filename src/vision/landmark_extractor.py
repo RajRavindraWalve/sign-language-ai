@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class LandmarkExtractor:
 
     def extract(self, results):
@@ -11,10 +14,10 @@ class LandmarkExtractor:
 
         for landmark in hand.landmark:
 
-            landmarks.append({
-                "x": landmark.x,
-                "y": landmark.y,
-                "z": landmark.z
-            })
+            landmarks.append([
+                landmark.x,
+                landmark.y,
+                landmark.z
+            ])
 
-        return landmarks
+        return np.array(landmarks, dtype=np.float32)

@@ -7,6 +7,9 @@ from vision.drawing import HandDrawer
 
 from utils.landmark_inspector import LandmarkInspector
 
+from collector.dataset_collector import DatasetCollector
+from config.labels import LABELS
+
 
 class App:
 
@@ -16,6 +19,7 @@ class App:
         self.extractor = LandmarkExtractor()
         self.drawer = HandDrawer()
         self.inspector = LandmarkInspector()
+        self.collector = DatasetCollector(LABELS)
 
         self.latest_landmarks = None
 
@@ -45,6 +49,14 @@ class App:
                 self.latest_landmarks
             )
 
+        if key == ord("n"):
+            self.collector.next_label()
+
+        if key == ord("p"):
+            self.collector.previous_label()
+
+        print(self.collector.current_label())
+        
         return False
 
     def run(self):
